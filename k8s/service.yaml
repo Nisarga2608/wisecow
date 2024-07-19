@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: wisecow-service
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 80
   selector:
     app: wisecow
-
+  ports:
+    - protocol: TCP
+      port: 443  # Use port 443 for HTTPS
+      targetPort: 80
+  type: LoadBalancer
+  tls:
+    - secretName: wisecow-tls-secret  # Replace with your secret name
