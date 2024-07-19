@@ -13,8 +13,15 @@ spec:
         app: wisecow
     spec:
       containers:
-      - name: wisecow
-        image: yourusername/wisecow-app:latest
-        ports:
-        - containerPort: 80
-
+        - name: wisecow
+          image: your-registry/wisecow:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: tls-certs
+              mountPath: "/etc/tls"
+              readOnly: true
+      volumes:
+        - name: tls-certs
+          secret:
+            secretName: wisecow-tls-secret  # Replace with your secret name
